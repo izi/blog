@@ -1,15 +1,22 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-
-<ul class="nav navbar-nav">
-  <li><a [routerLink]="['/dashboard']">Home</a></li>
-  <li><a [routerLink]="['/post-list']">Test</a></li>
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="masthead mb-auto">
+    <div class="inner">
+      <h3 class="masthead-brand">Broken Ninja</h3>
+      <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link active" [routerLink]="['/dashboard']">Home</a>
+        <a class="nav-link" [routerLink]="['/post-list']">Posts</a>
+        <a class="nav-link" [routerLink]="['/contact']">Contact</a>
+      </nav>
+    </div>
+  </header>
 
   <router-outlet></router-outlet>
-</ul>
 
-<router-outlet></router-outlet>
+  <footer class="mastfoot mt-auto">
+      <div class="inner">
+        <p>Cover template for
+          <a href="https://getbootstrap.com/">Bootstrap</a>, by
+          <a href="https://twitter.com/mdo">@mdo</a>.</p>
+      </div>
+    </footer>
 </div>
