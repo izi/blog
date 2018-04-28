@@ -16,20 +16,20 @@ import { PostgresPlv8SideEffectsComponent } from './post/postgres-plv8-side-effe
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent,    
     DashboardComponent,
     PostListComponent,
     PostComponent,
     ContactComponent,
     GameOfLifeComponent,
-    PostgresPlv8SideEffectsComponent
+    PostgresPlv8SideEffectsComponent,
+    NgxGistModule
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule.forRoot(),
-    NgxGistModule
-
+    // NgxGistModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,6 +6,8 @@ import { PostListComponent } from '../post-list/post-list.component';
 import { ContactComponent } from '../contact/contact.component';
 
 import { APP_BASE_HREF } from '@angular/common';
+import { GameOfLifeComponent } from '../post/game-of-life/game-of-life.component';
+import { NgxGistModule } from 'ngx-gist/dist/ngx-gist.module';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -13,8 +15,8 @@ describe('DashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DashboardComponent, PostListComponent, ContactComponent],
-      imports: [AppRoutingModule],
+      declarations: [DashboardComponent, PostListComponent, ContactComponent, GameOfLifeComponent],
+      imports: [AppRoutingModule, NgxGistModule],
       providers: [{ provide: APP_BASE_HREF, useValue: '/' }]
     })
       .compileComponents();

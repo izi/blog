@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { timer } from 'rxjs/observable/timer';
 import d3 = require('d3');
 import { GameOfLife, GameOfLifePattern } from './game-of-life';
 
@@ -27,9 +28,9 @@ export class GameOfLifeComponent implements OnInit {
     this.elHeight = this.height / this.game.height;
     this.elWidth = this.width / this.game.width;
 
-    const timer = Observable.timer(1000, 1000);
+    const gameTimer = timer(1000, 1000);
 
-    var sub = timer.subscribe(t => {
+    const sub = gameTimer.subscribe(t => {
       this.game.next();
       this.drawBoard();
     });
@@ -43,7 +44,7 @@ export class GameOfLifeComponent implements OnInit {
 
     const h = this.elHeight;
     const w = this.elWidth;
-    
+
     this.row = this.grid.selectAll('.row')
       .data(this.game.board)
       .enter().append('g')
@@ -58,7 +59,7 @@ export class GameOfLifeComponent implements OnInit {
       // .attr("y", function (d, i) { return 0; })
       .attr('width', function (d, i) { return w; })
       .attr('height', function (d, i) { return h; })
-      .style('fill', function (d): string { return d == 0 ? '#fff' : '#000'; })
+      .style('fill', function (d): string { return d === 0 ? '#fff' : '#000'; })
       .style('stroke', '#222');
 
     this.drawBoard();
@@ -76,7 +77,7 @@ export class GameOfLifeComponent implements OnInit {
       .transition()
       .duration(1000)
       .style('fill', function (d): string {
-        return d == 0 ? '#fff' : '#000';
-      })
+        return d === 0 ? '#fff' : '#000';
+      });
   }
 }
