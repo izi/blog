@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DashboardComponent } from './dashboard.component';
-import { AppRoutingModule } from '../app-routing.module'
+import { AppRoutingModule } from '../app-routing.module';
 import { PostListComponent } from '../post-list/post-list.component';
 import { ContactComponent } from '../contact/contact.component';
 
