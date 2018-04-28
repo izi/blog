@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { timer } from 'rxjs/observable/timer';
-import d3 = require('d3');
+import * as d3 from 'd3';
 import { GameOfLife, GameOfLifePattern } from './game-of-life';
 
 @Component({
