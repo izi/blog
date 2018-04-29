@@ -73,8 +73,6 @@ export class GameOfLife {
 }
 
 export class GameOfLifePattern {
-
-
     static block() {
         return new GameOfLife(4, 4, [1, 1], [1, 2], [2, 1], [2, 2]);
     }

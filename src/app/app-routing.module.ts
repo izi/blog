@@ -6,10 +6,10 @@ import { ContactComponent } from './contact/contact.component';
 import { GameOfLifeComponent } from './post/game-of-life/game-of-life.component';
 
 const routes: Routes = [
-  { path: 'dashboard', component: DashboardComponent },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: 'post-list', component: PostListComponent },
   { path: 'game', component: GameOfLifeComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: '', redirectTo: 'game', pathMatch: 'full' },
+  { path: 'post-list', component: PostListComponent },
   { path: 'contact', component: ContactComponent },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
