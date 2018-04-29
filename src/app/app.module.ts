@@ -22,14 +22,13 @@ import { PostgresPlv8SideEffectsComponent } from './post/postgres-plv8-side-effe
     PostComponent,
     ContactComponent,
     GameOfLifeComponent,
-    PostgresPlv8SideEffectsComponent,
-    NgxGistModule
+    PostgresPlv8SideEffectsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule.forRoot(),
-    // NgxGistModule
+    NgxGistModule
   ],
   providers: [],
   bootstrap: [AppComponent]
