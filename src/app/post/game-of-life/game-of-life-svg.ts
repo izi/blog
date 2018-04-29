@@ -31,12 +31,15 @@ export class GameOfLifeSVG {
             .data(function (d) { return d; })
             .enter().append('rect')
             .attr('class', 'square')
-            .attr('x', function (d, i) { return i * w; })
-            .attr('width', function (d, i) { return w; })
+            .attr('x', function (d, i, j) { return i * w; })
+            // .attr('y', function (d, i, j) { return j * h; })
+            .attr('width', function (d, i, j) { return w; })
             .attr('height', function (d, i) { return h; })
             .style('fill', function (d): string { return d === 0 ? '#fff' : '#000'; })
             .style('stroke', '#222')
-            .on('click', function(d,i){ console.log(this); });
+            .on('click', function (d, i, j) {
+                console.log(d, i);
+            });
     }
 
     start(initialDelay = 1000, delay = 1000) {

@@ -17,7 +17,7 @@ before_script:
   - npm install -g @angular/cli
 
 script:
-  - ng build
+  - ng build --prod --build-optimizer --aot
   - ng test --watch false --single-run
 
 deploy:
