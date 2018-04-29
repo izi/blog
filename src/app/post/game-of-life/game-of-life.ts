@@ -1,5 +1,6 @@
 export class GameOfLife {
     board: number[][];
+    infiniteSpace = true;
 
     constructor(public height: number, public width: number, ...elements: Array<[number, number]>) {
         this.board = this.empty();
@@ -33,17 +34,15 @@ export class GameOfLife {
         for (let i: number = row - 1; i <= row + 1; i++) {
             for (let j: number = col - 1; j <= col + 1; j++) {
                 if (!(i === row && j === col)) {
-                    const r = i < 0 ? i + this.height : (i >= this.height ? i - this.height : i);
-                    const c = j < 0 ? j + this.width : (j >= this.width ? j - this.width : j);
-
-                    // if (this.board[row][col] === 1) {
-                    // console.log(i, j, r, c);
-                    // }
-
-                    liveNeighbours += this.board[r][c];
-                    // if (!(i === row && col === j) && (i >= 0 && i < this.height && j >= 0 && j < this.width)) {
-                    // liveNeighbours += this.board[i][j];
-                    // }
+                    if (this.infiniteSpace) {
+                        const r = i < 0 ? i + this.height : (i >= this.height ? i - this.height : i);
+                        const c = j < 0 ? j + this.width : (j >= this.width ? j - this.width : j);
+                        liveNeighbours += this.board[r][c];
+                    } else {
+                        if (!(i === row && col === j) && (i >= 0 && i < this.height && j >= 0 && j < this.width)) {
+                            liveNeighbours += this.board[i][j];
+                        }
+                    }
                 }
             }
         }
@@ -114,13 +113,16 @@ export class GameOfLifePattern {
     }
 
     static gosperGliderGun() {
-        return new GameOfLife(50, 50,
+        let game = new GameOfLife(50, 50,
             [5, 1], [5, 2], [6, 1], [6, 2],
             [5, 11], [6, 11], [7, 11], [4, 12], [8, 12], [3, 13], [9, 13], [3, 14], [9, 14], [6, 15],
             [4, 16], [8, 16], [5, 17], [6, 17], [7, 17], [6, 18],
             [3, 21], [4, 21], [5, 21], [3, 22], [4, 22], [5, 22], [2, 23], [6, 23], [1, 25], [2, 25], [6, 25], [7, 25],
             [3, 35], [4, 35], [3, 36], [4, 36]
         );
+
+        game.infiniteSpace = false;
+        return game;
     }
 
     static line(size: number) {

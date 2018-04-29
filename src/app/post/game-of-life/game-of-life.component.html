@@ -21,13 +21,13 @@
     <h2>Still life components:</h2>
   </div>
   <div class="row">
-    <div class="col-sm" id="game-of-life-block"></div>
-    <div class="col-sm" id="game-of-life-beehive"></div>
-    <div class="col-sm" id="game-of-life-loaf"></div>
+    <div class="col-sm game" id="game-of-life-block"></div>
+    <div class="col-sm game" id="game-of-life-beehive"></div>
+    <div class="col-sm game" id="game-of-life-loaf"></div>
   </div>
   <div class="row">
-    <div class="col-sm" id="game-of-life-boat"></div>
-    <div class="col-sm" id="game-of-life-tub"></div>
+    <div class="col-sm game" id="game-of-life-boat"></div>
+    <div class="col-sm game" id="game-of-life-tub"></div>
   </div>
 </div>
 <div class="container">
@@ -35,9 +35,18 @@
     <h2>Oscilator components:</h2>
   </div>
   <div class="row">
-    <div class="col-sm" id="game-of-life-toad"></div>
-    <div class="col-sm" id="game-of-life-beacon"></div>
-    <div class="col-sm" id="game-of-life-glider"></div>
+    <div class="col-sm game" id="game-of-life-blinker"></div>
+    <div class="col-sm game" id="game-of-life-toad"></div>
+    <div class="col-sm game" id="game-of-life-beacon"></div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <h2>Spaceships components:</h2>
+  </div>
+  <div class="row">
+    <div class="col-sm game" id="game-of-life-glider"></div>
+    <div class="col-sm game" id="game-of-life-spaceship"></div>
   </div>
 </div>
 
@@ -46,8 +55,8 @@
     <td style="width: 15px; height: 15px;" *ngFor="let cell of row">{{ cell == 1 ? 'X' : '' }}</td>
   </tr>
 </table> -->
-<h2>Final game:</h2>
-<div class="game-of-life-svg" id="game-of-life-svg">
+<h2>Gosper Gun Game:</h2>
+<div id="game-of-life-gospergun">
 
 </div>
 <h2>References</h2>
