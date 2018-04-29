@@ -28,5 +28,5 @@ deploy:
   on:
     branch: master
   repo: izi/izi.github.com
-  branch: master
+  target-branch: master
   local-dir: dist
