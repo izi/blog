@@ -19,3 +19,14 @@ before_script:
 script:
   - ng build
   - ng test --watch false --single-run
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN 
+  keep-history: true
+  on:
+    branch: master
+  repo: izi/izi.github.com
+  branch: master
+  local-dir: dist
