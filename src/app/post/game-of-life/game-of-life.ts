@@ -1,11 +1,13 @@
+export enum Life { Dead, Live }
+
 export class GameOfLife {
-    board: number[][];
+    board: Life[][];
     infiniteSpace = true;
 
     constructor(public height: number, public width: number, ...elements: Array<[number, number]>) {
         this.board = this.empty();
         if (elements) {
-            elements.forEach(e => this.board[e[0]][e[1]] = 1);
+            elements.forEach(e => this.board[e[0]][e[1]] = Life.Live);
         }
     }
 
@@ -16,11 +18,11 @@ export class GameOfLife {
             for (let j = 0; j < this.width; j++) {
                 const liveNeighbours = this.liveNeighbours(i, j);
                 if (this.board[i][j] === 1 && (liveNeighbours === 2 || liveNeighbours === 3)) {
-                    newBoard[i][j] = 1;
+                    newBoard[i][j] = Life.Live;
                 } else if (this.board[i][j] === 0 && liveNeighbours === 3) {
-                    newBoard[i][j] = 1;
+                    newBoard[i][j] = Life.Live;
                 } else {
-                    newBoard[i][j] = 0;
+                    newBoard[i][j] = Life.Dead;
                 }
             }
         }
@@ -53,7 +55,7 @@ export class GameOfLife {
     random() {
         for (let i = 0; i < this.height; i++) {
             for (let j = 0; j < this.width; j++) {
-                this.board[i][j] = Math.random() > 0.5 ? 1 : 0;
+                this.board[i][j] = Math.random() > 0.5 ? Life.Live : Life.Dead;
             }
         }
     }
@@ -63,11 +65,15 @@ export class GameOfLife {
         for (let i = 0; i < this.height; i++) {
             board[i] = [];
             for (let j = 0; j < this.width; j++) {
-                board[i][j] = 0;
+                board[i][j] = Life.Dead;
             }
         }
 
         return board;
+    }
+
+    clear() {
+        this.board = this.empty();
     }
 }
 
@@ -125,12 +131,20 @@ export class GameOfLifePattern {
         return game;
     }
 
+    static empty(size = 50) {
+        return new GameOfLife(size, size);
+    }
+
+    static trollFace() {
+
+    }
+
     static line(size: number) {
         const game = new GameOfLife(size, size);
 
         const row = size / 2;
         for (let col = 0; col < size; col++) {
-            game.board[row][col] = 1;
+            game.board[row][col] = Life.Live;
         }
 
         return game;

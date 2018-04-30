@@ -8,6 +8,7 @@ import { GameOfLifeSVG } from './game-of-life-svg';
   styleUrls: ['./game-of-life.component.scss']
 })
 export class GameOfLifeComponent implements OnInit {
+  game: GameOfLifeSVG;
 
   constructor(private element: ElementRef) {
   }
@@ -33,5 +34,20 @@ export class GameOfLifeComponent implements OnInit {
 
     let gosperGliderGun = new GameOfLifeSVG(GameOfLifePattern.gosperGliderGun(), '#game-of-life-gospergun', this.element.nativeElement, 630);
     gosperGliderGun.start(1000, 150);
+
+    this.game = new GameOfLifeSVG(GameOfLifePattern.empty(80), '#game-of-life-final', this.element.nativeElement, 630);
+  }
+
+  startGame() {
+    this.game.start();
+  }
+
+  pauseGame() {
+    this.game.stop();
+  }
+
+  stopGame() {
+    this.game.clear();
+    this.game.stop();
   }
 }
