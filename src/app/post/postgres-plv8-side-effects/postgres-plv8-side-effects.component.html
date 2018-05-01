@@ -1,2 +1,58 @@
-<p>
-</p>
+<main role="main" class="inner cover">
+  <h1 class="cover-heading">Mixing paradigms on example of PLV8.</h1>
+  <p>
+    PostgreSQL is fantastic datastorage which gives you incredible flexibility. I'll use PLV8 as example what kind of issues
+    can arise when you mix different tools which are equaly powerful.
+  </p>
+  <p>
+    <a href="https://plv8.github.io/">PLV8</a> extension introduces Javascript into database engine which with
+    <a href="https://www.postgresql.org/docs/9.4/static/datatype-json.html">JSONB</a> allows you to use techniques not commonly used in databases like memoisation without using some form of temporary
+    table.
+  </p>
+  <h2 class="cover-heading">Connection level cache</h2>
+  <p>
+    PLV8 has one global JS
+    <a href="https://plv8.github.io/#runtime-environment-separation">context per session</a>. When the plv8 initializes it loads Counter function below uses plv8 context to create a counter.
+  </p>
+  <ngx-gist style="height: 227px" [gistId]="'izi/32996449801f30fbc980e2e2a95cf891'"></ngx-gist>
+  <p>
+    The session is isolated so for each new connection the counter will start from 0 but subsequent calls within a single session
+    will result in counter returning subsequent values. The issue with this approach is not related to PLV8 isolation level
+    but the way how applications work with database in practice. Database connections are sparse resource and in PostgreSQL
+    more connections do not mean better performance. If you are using connection pooling at the application level then it
+    allows to bypass some security constraints.
+  </p>
+  <h2 class="cover-heading">Memoisation</h2>
+  <p>
+    We can use cache at the connection level to implement memoisation mechanism. I will use fibonnaci function as it's commonly
+    used as an example for memoisation in recursive calls. The first version of function is just plain old fib.
+  </p>
+  <ngx-gist style="height: 316px" [gistId]="'izi/8c9bcd010df6d34461a3a6d47eff0276'"></ngx-gist>
+  <p>
+    The fib_memo version uses the plv8 global context to memoize the already computed values.
+  </p>
+  <ngx-gist style="height: 469px" [gistId]="'izi/0fa11ba166955d1120e44c94e6d2bac1'"></ngx-gist>
+  <p>
+    The fib_memo function outperforms normal version significantly.
+  </p>
+  <ngx-gist style="height: 755px" [gistId]="'izi/82cdd3bb87f1a01653e38f9d8c090ee0'"></ngx-gist>
+  <p>
+    It's funny to look how concepts from one environment when mixed into a different usage scenario change rules of the game. Besides pure language features it can also result with extenstion specific challenges. Grand Unified Configuration (GUC) in PostgreSQL controls the cluster behaviour. With cloud provided installations like AWS RDS it may not be possible (at least it should not be) to control fully. PLV8 session can be initialized with with specific function. In order to set it up you need admin rights:
+  </p>
+  <ngx-gist style="height: 200px" [gistId]="'izi/17b167a90510c5c8ca7e6d86b4e66fbf'"></ngx-gist>
+  <p>
+    <a href="http://adpgtech.blogspot.com/2013/03/loading-useful-modules-in-plv8.html">Normally on AWS RDS PostgreSQL you should not be able to set this globally as you don't have access to the configuration files and the configuration is controlled by RDS Parameter Groups</a>
+  </p>
+  <ngx-gist style="height: 200px" [gistId]="'izi/1b35f206363d5188137a43fd1621f76e'"></ngx-gist>
+  <p>
+    For unknown reasons the above worked on PostgreSQL 9.5/9.6 and allowed to bypass the normal configuration restrictions in AWS. There are probably more side effects but those are showing how easily mixing concepts may lead to not solutions and problems.
+  </p>
+  <ul>
+    <li>https://plv8.github.io/</li>
+    <li>https://www.postgresql.org/</li>
+    <li>https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithParamGroups.html</li>
+    <li>https://www.enterprisedb.com/node/3383</li>
+    <li>http://adpgtech.blogspot.com/2013/03/loading-useful-modules-in-plv8.html</li>
+  </ul>
+
+</main>

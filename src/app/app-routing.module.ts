@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PostListComponent } from './post-list/post-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ContactComponent } from './contact/contact.component';
 import { GameOfLifeComponent } from './post/game-of-life/game-of-life.component';
+import { PostgresPlv8SideEffectsComponent } from './post/postgres-plv8-side-effects/postgres-plv8-side-effects.component';
 
 const routes: Routes = [
   { path: 'game', component: GameOfLifeComponent },
+  { path: 'plv8', component: PostgresPlv8SideEffectsComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: '', redirectTo: 'game', pathMatch: 'full' },
-  { path: 'post-list', component: PostListComponent },
   { path: 'contact', component: ContactComponent },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];

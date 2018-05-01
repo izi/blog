@@ -1,4 +1,4 @@
-export enum Life { Dead, Live }
+export enum Life { Dead, Alive }
 
 export class GameOfLife {
     board: Life[][];
@@ -6,8 +6,12 @@ export class GameOfLife {
 
     constructor(public height: number, public width: number, ...elements: Array<[number, number]>) {
         this.board = this.empty();
+
         if (elements) {
-            elements.forEach(e => this.board[e[0]][e[1]] = Life.Live);
+            elements.forEach(e => {
+                const [row, cell] = e;
+                this.board[row][cell] = Life.Alive;
+            });
         }
     }
 
@@ -16,18 +20,32 @@ export class GameOfLife {
 
         for (let i = 0; i < this.height; i++) {
             for (let j = 0; j < this.width; j++) {
-                const liveNeighbours = this.liveNeighbours(i, j);
-                if (this.board[i][j] === 1 && (liveNeighbours === 2 || liveNeighbours === 3)) {
-                    newBoard[i][j] = Life.Live;
-                } else if (this.board[i][j] === 0 && liveNeighbours === 3) {
-                    newBoard[i][j] = Life.Live;
-                } else {
-                    newBoard[i][j] = Life.Dead;
-                }
+                newBoard[i][j] = this.nextCellState(i, j);
             }
         }
 
         this.board = newBoard;
+    }
+
+    private nextCellState(i: number, j: number) {
+        const liveNeighbours = this.liveNeighbours(i, j);
+        const currentCellState = this.board[i][j];
+
+        if (this.isHealthyCell(currentCellState, liveNeighbours)) {
+            return Life.Alive;
+        } else if (this.isNewLifeCell(currentCellState, liveNeighbours)) {
+            return Life.Alive;
+        }
+
+        return Life.Dead;
+    }
+
+    private isNewLifeCell(currentCellState: Life, liveNeighbours: number) {
+        return currentCellState === Life.Dead && liveNeighbours === 3;
+    }
+
+    private isHealthyCell(currentCellState: Life, liveNeighbours: number) {
+        return currentCellState === Life.Alive && (liveNeighbours === 2 || liveNeighbours === 3);
     }
 
     liveNeighbours(row: number, col: number) {
@@ -37,13 +55,11 @@ export class GameOfLife {
             for (let j: number = col - 1; j <= col + 1; j++) {
                 if (!(i === row && j === col)) {
                     if (this.infiniteSpace) {
-                        const r = i < 0 ? i + this.height : (i >= this.height ? i - this.height : i);
-                        const c = j < 0 ? j + this.width : (j >= this.width ? j - this.width : j);
+                        const r = this.indexOnPlane(i, this.height);
+                        const c = this.indexOnPlane(j, this.width);
                         liveNeighbours += this.board[r][c];
-                    } else {
-                        if (!(i === row && col === j) && (i >= 0 && i < this.height && j >= 0 && j < this.width)) {
-                            liveNeighbours += this.board[i][j];
-                        }
+                    } else if (this.isWithinPlane(i, j)) {
+                        liveNeighbours += this.board[i][j];
                     }
                 }
             }
@@ -52,21 +68,19 @@ export class GameOfLife {
         return liveNeighbours;
     }
 
-    random() {
-        for (let i = 0; i < this.height; i++) {
-            for (let j = 0; j < this.width; j++) {
-                this.board[i][j] = Math.random() > 0.5 ? Life.Live : Life.Dead;
-            }
-        }
+    private indexOnPlane(index: number, planeSize) {
+        return index < 0 ? index + planeSize : (index >= planeSize ? index - planeSize : index);
+    }
+
+    private isWithinPlane(i: number, j: number) {
+        return i >= 0 && i < this.height && j >= 0 && j < this.width;
     }
 
     empty() {
-        const board = Array<Array<number>>(this.height);
+        const board: Life[][] = new Array(this.height);
+
         for (let i = 0; i < this.height; i++) {
-            board[i] = [];
-            for (let j = 0; j < this.width; j++) {
-                board[i][j] = Life.Dead;
-            }
+            board[i] = new Array(this.width).fill(Life.Dead);
         }
 
         return board;
@@ -119,7 +133,7 @@ export class GameOfLifePattern {
     }
 
     static gosperGliderGun() {
-        let game = new GameOfLife(50, 50,
+        const game = new GameOfLife(50, 50,
             [5, 1], [5, 2], [6, 1], [6, 2],
             [5, 11], [6, 11], [7, 11], [4, 12], [8, 12], [3, 13], [9, 13], [3, 14], [9, 14], [6, 15],
             [4, 16], [8, 16], [5, 17], [6, 17], [7, 17], [6, 18],
@@ -133,20 +147,5 @@ export class GameOfLifePattern {
 
     static empty(size = 50) {
         return new GameOfLife(size, size);
-    }
-
-    static trollFace() {
-
-    }
-
-    static line(size: number) {
-        const game = new GameOfLife(size, size);
-
-        const row = size / 2;
-        for (let col = 0; col < size; col++) {
-            game.board[row][col] = Life.Live;
-        }
-
-        return game;
     }
 }

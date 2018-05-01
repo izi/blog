@@ -1,9 +1,9 @@
-import { GameOfLife, GameOfLifePattern } from "./game-of-life";
+import { GameOfLife, GameOfLifePattern, Life } from './game-of-life';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from 'rxjs/Subscription';
 import { timer } from 'rxjs/observable/timer';
 import * as d3 from 'd3';
-import { DSV } from "d3";
+import { DSV } from 'd3';
 
 export class GameOfLifeSVG {
     subscription: Subscription;
@@ -25,10 +25,9 @@ export class GameOfLifeSVG {
             .attr('width', this.size + this.unit)
             .attr('height', this.size + this.unit)
             .on('click', this.selectCell(h, w))
-            .on('mouseover', this.selectCell(h, w, false))
-            ;
+            .on('mouseover', this.selectCell(h, w, false));
 
-        var row = this.grid.selectAll('.game-row')
+        const row = this.grid.selectAll('.game-row')
             .data(this.game.board)
             .enter()
             .append('g')
@@ -41,12 +40,12 @@ export class GameOfLifeSVG {
             .attr('x', function (d, i, j) { return i * w; })
             .attr('width', function (d, i, j) { return w; })
             .attr('height', function (d, i) { return h; })
-            .style('fill', function (d): string { return d === 0 ? '#fff' : '#000'; })
-            .style('stroke', '#222')
+            .style('fill', function (d): string { return d === Life.Dead ? '#fff' : '#000'; })
+            .style('stroke', '#222');
     }
 
     start(initialDelay = 1000, delay = 1000) {
-        let gameTimer = timer(initialDelay, delay);
+        const gameTimer = timer(initialDelay, delay);
 
         this.subscription = gameTimer.subscribe(t => {
             this.game.next();
@@ -67,27 +66,27 @@ export class GameOfLifeSVG {
         const h = this.size / this.game.height;
         const w = this.size / this.game.width;
 
-        var row = this.grid.selectAll('.game-row')
+        const row = this.grid.selectAll('.game-row')
             .data(this.game.board);
 
         row.selectAll('.square')
             .data(function (d) { return d; })
             .style('fill', function (d): string {
-                return d === 0 ? '#fff' : '#000';
+                return d === Life.Dead ? '#fff' : '#000';
             });
     }
 
     private selectCell(h: number, w: number, allButtons = true): (d) => void {
         return (d) => {
-            d3.event
-            var coords = d3.mouse(d3.event.currentTarget);
+            d3.event.stopPropagation();
+            const coords = d3.mouse(d3.event.currentTarget);
 
             console.log(d3.event.buttons);
             if (allButtons || d3.event.buttons === 1) {
-                var col = Math.floor(coords[0] / h);
-                var row = Math.floor(coords[1] / w);
+                const col = Math.floor(coords[0] / h);
+                const row = Math.floor(coords[1] / w);
 
-                this.game.board[row][col] = this.game.board[row][col] == 1 ? 0 : 1;
+                this.game.board[row][col] = this.game.board[row][col] === Life.Alive ? Life.Dead : Life.Alive;
                 this.drawBoard(1000);
             }
         };

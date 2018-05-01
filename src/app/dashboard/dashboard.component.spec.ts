@@ -2,12 +2,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DashboardComponent } from './dashboard.component';
 import { AppRoutingModule } from '../app-routing.module';
-import { PostListComponent } from '../post-list/post-list.component';
 import { ContactComponent } from '../contact/contact.component';
 
 import { APP_BASE_HREF } from '@angular/common';
 import { GameOfLifeComponent } from '../post/game-of-life/game-of-life.component';
 import { NgxGistModule } from 'ngx-gist/dist/ngx-gist.module';
+import { PostgresPlv8SideEffectsComponent } from '../post/postgres-plv8-side-effects/postgres-plv8-side-effects.component';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -15,7 +15,7 @@ describe('DashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DashboardComponent, PostListComponent, ContactComponent, GameOfLifeComponent],
+      declarations: [DashboardComponent, ContactComponent, GameOfLifeComponent, PostgresPlv8SideEffectsComponent],
       imports: [AppRoutingModule, NgxGistModule],
       providers: [{ provide: APP_BASE_HREF, useValue: '/' }]
     })

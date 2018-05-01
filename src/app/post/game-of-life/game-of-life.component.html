@@ -1,86 +1,85 @@
-<h1>Game of Life</h1>
-<p>
-  This is just some fun with a classic cellurar automaton. The rules are described in detail on
-  <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Wikipedia</a> with all relevant information. The rules are copied from Wikipedia with some additional cralrification.
-</p>
-<h3>Rules</h3>
-<ul>
-  <li>The game is played on infinite plane. In practice this would mean that objects are moving from one end of plane to other</li>
-  <li>Each cell has 8 neighbours and can be in 2 states. Live or dead.</li>
-  <li>Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.</li>
-  <li>Any live cell with two or three live neighbours lives on to the next generation.</li>
-  <li>Any live cell with more than three live neighbours dies, as if by overpopulation.</li>
-  <li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.</li>
-</ul>
-<p>
-  I will use D3 to animate the changes over SVG component. The game itself is a simple class which allows to iterate and view
-  the evolution of life based on the rules above.
-</p>
-<div class="container">
-  <div class="row">
-    <h2>Still life components</h2>
-    There are multiple different object types identified in the game. Still life components do not mutate without interacting with other life forms.
+<main role="main" class="inner">
+  <h1>Game of Life</h1>
+  <p>
+    The post is just some fun with a classic cellurar automaton. The rules are described in detail on
+    <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Wikipedia</a> with all relevant information. The game below is the final version which allows you to set the initial
+    state and then observe the evolution.
+  </p>
+  <div id="game-of-life-final">
+  </div>
+  <a (click)="startGame()" class="btn btn-lg btn-secondary">Start</a>
+  <a (click)="pauseGame()" class="btn btn-lg btn-secondary">Pause</a>
+  <a (click)="stopGame()" class="btn btn-lg btn-secondary">Stop</a>
 
-    Let's start with a game class.
+  <h3>Rules</h3>
+  <p>The rules are copied from Wikipedia with some additional clarification.</p>
+  <ul>
+    <li>The game is played on infinite plane. In practice this would mean that objects are moving from one end of plane to other
+      or that we don't track the objects that left the plane.</li>
+    <li>Each cell has 8 neighbours and can be in 2 states. Live or dead.</li>
+    <li>Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.</li>
+    <li>Any live cell with two or three live neighbours lives on to the next generation.</li>
+    <li>Any live cell with more than three live neighbours dies, as if by overpopulation.</li>
+    <li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.</li>
+  </ul>
+  <p>
+    I will use D3 to animate the changes over SVG component. The game itself is a simple class which allows to iterate and view
+    the evolution of life based on the rules above.
+  </p>
+  <h2>Still life components</h2>
+  <p>
+    There are multiple different object types identified in the game. Still life components do not mutate without interacting
+    with other life forms.
+  </p>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm game" id="game-of-life-block"></div>
+      <div class="col-sm game" id="game-of-life-beehive"></div>
+      <div class="col-sm game" id="game-of-life-loaf"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm game" id="game-of-life-boat"></div>
+      <div class="col-sm game" id="game-of-life-tub"></div>
+    </div>
   </div>
-  <div class="row">
-    <div class="col-sm game" id="game-of-life-block"></div>
-    <div class="col-sm game" id="game-of-life-beehive"></div>
-    <div class="col-sm game" id="game-of-life-loaf"></div>
+  <h2>Oscilator components</h2>
+  <p>
+    Oscilator will have a specific period, number of rounds before it gets back to initial state.
+  </p>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm game" id="game-of-life-blinker"></div>
+      <div class="col-sm game" id="game-of-life-toad"></div>
+      <div class="col-sm game" id="game-of-life-beacon"></div>
+    </div>
   </div>
-  <div class="row">
-    <div class="col-sm game" id="game-of-life-boat"></div>
-    <div class="col-sm game" id="game-of-life-tub"></div>
+  <h2>Spaceships components</h2>
+  <p>
+    Those bad boys will travel in time and space.
+  </p>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm game" id="game-of-life-glider"></div>
+      <div class="col-sm game" id="game-of-life-spaceship"></div>
+    </div>
   </div>
-</div>
-<div class="container">
-  <div class="row">
-    <h2>Oscilator components</h2>
-  </div>
-  <div class="row">
-    <div class="col-sm game" id="game-of-life-blinker"></div>
-    <div class="col-sm game" id="game-of-life-toad"></div>
-    <div class="col-sm game" id="game-of-life-beacon"></div>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-    <h2>Spaceships components</h2>
-  </div>
-  <div class="row">
-    <div class="col-sm game" id="game-of-life-glider"></div>
-    <div class="col-sm game" id="game-of-life-spaceship"></div>
-  </div>
-</div>
+  <h2>Gosper Gun Game:</h2>
+  <div id="game-of-life-gospergun">
 
-<!-- <table>
-  <tr *ngFor="let row of game.board">
-    <td style="width: 15px; height: 15px;" *ngFor="let cell of row">{{ cell == 1 ? 'X' : '' }}</td>
-  </tr>
-</table> -->
-<h2>Gosper Gun Game:</h2>
-<div id="game-of-life-gospergun">
+  </div>
 
-</div>
-<h2>Final:</h2>
-<div id="game-of-life-final">
+  <h2>References</h2>
 
-</div>
-<a (click)="startGame()" class="btn btn-lg btn-secondary">Start</a>
-<a (click)="pauseGame()" class="btn btn-lg btn-secondary">Pause</a>
-<a (click)="stopGame()" class="btn btn-lg btn-secondary">Stop</a>
-
-<h2>References</h2>
-
-<ul>
-  <li>
-    <a href="https://d3js.org/"></a>D3 JS</li>
-  <li>
-    <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Game of Life Wikipedia</a>
-  </li>
-  <li>
-    <a href="https://hstefanski.wordpress.com/2015/10/25/responding-to-d3-events-in-typescript/">D3.js Typescript events. 'This' magic in transpiled code.</a>
-  </li>
-</ul>
-<p>
-</p>
+  <ul>
+    <li>
+      <a href="https://d3js.org/"></a>D3 JS</li>
+    <li>
+      <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Game of Life Wikipedia</a>
+    </li>
+    <li>
+      <a href="https://hstefanski.wordpress.com/2015/10/25/responding-to-d3-events-in-typescript/">D3.js Typescript events. 'This' magic in transpiled code.</a>
+    </li>
+  </ul>
+  <p>
+  </p>
+</main>

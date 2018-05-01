@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { PostListComponent } from './post-list/post-list.component';
 import { PostComponent } from './post/post.component';
 import { ContactComponent } from './contact/contact.component';
 import { GameOfLifeComponent } from './post/game-of-life/game-of-life.component';
@@ -16,9 +15,8 @@ import { PostgresPlv8SideEffectsComponent } from './post/postgres-plv8-side-effe
 
 @NgModule({
   declarations: [
-    AppComponent,    
+    AppComponent,
     DashboardComponent,
-    PostListComponent,
     PostComponent,
     ContactComponent,
     GameOfLifeComponent,

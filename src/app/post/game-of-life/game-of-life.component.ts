@@ -14,28 +14,29 @@ export class GameOfLifeComponent implements OnInit {
   }
 
   ngOnInit() {
-    let block = new GameOfLifeSVG(GameOfLifePattern.block(), '#game-of-life-block', this.element.nativeElement, 210);
-    let beehive = new GameOfLifeSVG(GameOfLifePattern.beehive(), '#game-of-life-beehive', this.element.nativeElement, 210);
-    let loaf = new GameOfLifeSVG(GameOfLifePattern.loaf(), '#game-of-life-loaf', this.element.nativeElement, 210);
-    let boat = new GameOfLifeSVG(GameOfLifePattern.boat(), '#game-of-life-boat', this.element.nativeElement, 210);
-    let tub = new GameOfLifeSVG(GameOfLifePattern.tub(), '#game-of-life-tub', this.element.nativeElement, 210);
+    const gameComponent = this.element.nativeElement;
+    const block = new GameOfLifeSVG(GameOfLifePattern.block(), '#game-of-life-block', gameComponent, 210);
+    const beehive = new GameOfLifeSVG(GameOfLifePattern.beehive(), '#game-of-life-beehive', gameComponent, 210);
+    const loaf = new GameOfLifeSVG(GameOfLifePattern.loaf(), '#game-of-life-loaf', gameComponent, 210);
+    const boat = new GameOfLifeSVG(GameOfLifePattern.boat(), '#game-of-life-boat', gameComponent, 210);
+    const tub = new GameOfLifeSVG(GameOfLifePattern.tub(), '#game-of-life-tub', gameComponent, 210);
 
-    let toad = new GameOfLifeSVG(GameOfLifePattern.toad(), '#game-of-life-toad', this.element.nativeElement, 210);
+    const toad = new GameOfLifeSVG(GameOfLifePattern.toad(), '#game-of-life-toad', gameComponent, 210);
     toad.start();
-    let beacon = new GameOfLifeSVG(GameOfLifePattern.beacon(), '#game-of-life-beacon', this.element.nativeElement, 210);
+    const beacon = new GameOfLifeSVG(GameOfLifePattern.beacon(), '#game-of-life-beacon', gameComponent, 210);
     beacon.start();
-    let blinker = new GameOfLifeSVG(GameOfLifePattern.blinker(), '#game-of-life-blinker', this.element.nativeElement, 210);
+    const blinker = new GameOfLifeSVG(GameOfLifePattern.blinker(), '#game-of-life-blinker', gameComponent, 210);
     blinker.start();
-    
-    let glider = new GameOfLifeSVG(GameOfLifePattern.glider(), '#game-of-life-glider', this.element.nativeElement, 210);
+
+    const glider = new GameOfLifeSVG(GameOfLifePattern.glider(), '#game-of-life-glider', gameComponent, 210);
     glider.start();
-    let spaceship = new GameOfLifeSVG(GameOfLifePattern.spaceship(), '#game-of-life-spaceship', this.element.nativeElement, 210);
+    const spaceship = new GameOfLifeSVG(GameOfLifePattern.spaceship(), '#game-of-life-spaceship', gameComponent, 210);
     spaceship.start();
 
-    let gosperGliderGun = new GameOfLifeSVG(GameOfLifePattern.gosperGliderGun(), '#game-of-life-gospergun', this.element.nativeElement, 630);
-    gosperGliderGun.start(1000, 150);
+    const gosperGliderGun = new GameOfLifeSVG(GameOfLifePattern.gosperGliderGun(), '#game-of-life-gospergun', gameComponent, 630);
+    gosperGliderGun.start(1000, 50);
 
-    this.game = new GameOfLifeSVG(GameOfLifePattern.empty(80), '#game-of-life-final', this.element.nativeElement, 630);
+    this.game = new GameOfLifeSVG(GameOfLifePattern.empty(50), '#game-of-life-final', gameComponent, 630);
   }
 
   startGame() {
