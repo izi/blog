@@ -20,6 +20,7 @@ script:
   - ng lint
   - ng build --prod --build-optimizer --aot
   - ng test --watch false --single-run
+  - cp dist/index.html dist/error.html
 
 deploy:
   provider: pages
