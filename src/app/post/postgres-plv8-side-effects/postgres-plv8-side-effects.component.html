@@ -1,7 +1,7 @@
 <main role="main" class="inner cover">
   <h1 class="cover-heading">Mixing paradigms on example of PLV8.</h1>
   <p>
-    PostgreSQL is fantastic datastorage which gives you incredible flexibility. I'll use PLV8 as example what kind of issues
+    PostgreSQL is fantastic datastorage which gives you incredible flexibility. I'll use PLV8 as an example what kind of issues
     can arise when you mix different tools which are equaly powerful.
   </p>
   <p>
@@ -12,7 +12,8 @@
   <h2 class="cover-heading">Connection level cache</h2>
   <p>
     PLV8 has one global JS
-    <a href="https://plv8.github.io/#runtime-environment-separation">context per session</a>. When the plv8 initializes it loads Counter function below uses plv8 context to create a counter.
+    <a href="https://plv8.github.io/#runtime-environment-separation">context per session</a>. When the plv8 initializes it loads the context which is avalaible under plv8 object in database.
+    Counter function below uses plv8 context to provide subsequent numbers.
   </p>
   <ngx-gist style="height: 227px" [gistId]="'izi/32996449801f30fbc980e2e2a95cf891'"></ngx-gist>
   <p>
@@ -33,19 +34,27 @@
   </p>
   <ngx-gist style="height: 469px" [gistId]="'izi/0fa11ba166955d1120e44c94e6d2bac1'"></ngx-gist>
   <p>
-    The fib_memo function outperforms normal version significantly.
+    The fib_memo function outperforms normal version significantly. Actually for fibonacci numbers above 60 the query was blocking
+    on the database used for testing.
   </p>
   <ngx-gist style="height: 755px" [gistId]="'izi/82cdd3bb87f1a01653e38f9d8c090ee0'"></ngx-gist>
   <p>
-    It's funny to look how concepts from one environment when mixed into a different usage scenario change rules of the game. Besides pure language features it can also result with extenstion specific challenges. Grand Unified Configuration (GUC) in PostgreSQL controls the cluster behaviour. With cloud provided installations like AWS RDS it may not be possible (at least it should not be) to control fully. PLV8 session can be initialized with with specific function. In order to set it up you need admin rights:
+    It's funny to look how concepts from one environment when mixed into a different usage scenario change rules of the game.
+    Besides pure language features it can also result with extenstion specific challenges. Grand Unified Configuration (GUC)
+    in PostgreSQL controls the cluster behaviour. With cloud provided installations like AWS RDS it may not be possible (at
+    least it should not be) to control fully. PLV8 session can be initialized with with specific function. In order to set
+    it up you need admin rights:
   </p>
   <ngx-gist style="height: 200px" [gistId]="'izi/17b167a90510c5c8ca7e6d86b4e66fbf'"></ngx-gist>
   <p>
-    <a href="http://adpgtech.blogspot.com/2013/03/loading-useful-modules-in-plv8.html">Normally on AWS RDS PostgreSQL you should not be able to set this globally as you don't have access to the configuration files and the configuration is controlled by RDS Parameter Groups</a>
+    <a href="http://adpgtech.blogspot.com/2013/03/loading-useful-modules-in-plv8.html">Normally on AWS RDS PostgreSQL you should not be able to set this globally as you don't have access to the configuration
+      files and the configuration is controlled by RDS Parameter Groups</a>
   </p>
   <ngx-gist style="height: 200px" [gistId]="'izi/1b35f206363d5188137a43fd1621f76e'"></ngx-gist>
   <p>
-    For unknown reasons the above worked on PostgreSQL 9.5/9.6 and allowed to bypass the normal configuration restrictions in AWS. There are probably more side effects but those are showing how easily mixing concepts may lead to not solutions and problems.
+    For unknown reasons the above worked on PostgreSQL 9.5/9.6 and allowed to bypass the normal configuration restrictions in
+    AWS. There are probably more side effects but those are showing how easily mixing concepts may lead to new solutions
+    and problems.
   </p>
   <ul>
     <li>https://plv8.github.io/</li>
