@@ -7,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+  posts = [
+    { title: "Game of Life", uri: "/game-of-life" },
+    { title: "Mixing paradigms on example of PLV8", uri: "/plv8" }
+  ];
+
   constructor() { }
 
   ngOnInit() {

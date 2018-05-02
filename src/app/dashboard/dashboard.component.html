@@ -1,7 +1,5 @@
 <main role="main" class="inner cover">
-  <h1 class="cover-heading">Breaking one thing at a time.</h1>
-  <p class="lead">This is a playground for some ideas about software.</p>
-  <p class="lead">
-    <a [routerLink]="['/post-list']" class="btn btn-lg btn-secondary">Explore</a>
-  </p>
+  <h2 *ngFor="let post of posts">
+      <a class="nav-link" [routerLink]="[post.uri]">{{post.title}}</a>
+  </h2>
 </main>

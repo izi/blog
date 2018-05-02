@@ -1,23 +1,22 @@
-<div class="cover-container d-flex w-100 h-100 flex-column"> <!-- mx-auto -->
-  <header class="masthead mb-auto">
+<div class="cover-container d-flex w-100 h-100 flex-column">
+  <header class="masthead">
     <div class="inner">
-      <h3 class="masthead-brand">Blog</h3>
+      <h3 class="masthead-brand">Breaking one thing at a time</h3>
       <nav class="nav nav-masthead justify-content-center">
-        <a class="nav-link active" [routerLink]="['/dashboard']">Home</a>
-        <a class="nav-link" [routerLink]="['/post-list']">Posts</a>
-        <a class="nav-link" [routerLink]="['/contact']">Contact</a>
+        <a class="nav-link" [routerLink]="['/dashboard']" routerLinkActive="active">Posts</a>
+        <a class="nav-link" [routerLink]="['/contact']" routerLinkActive="active">Contact</a>
       </nav>
     </div>
   </header>
 
   <router-outlet></router-outlet>
 
-  <footer class="mastfoot"><!-- mt-auto -->
-      <div class="inner">
-        <p>
-          Thoughts by <a href="https://www.linkedin.com/in/krzysztof-suchomski-86468931/">Krzysztof Suchomski</a>.
-          2018
-        </p>
-      </div>
-    </footer>
+  <!-- <footer class="mastfoot">
+    <div class="inner">
+      <p>
+        Thoughts by
+        <a href="https://www.linkedin.com/in/krzysztof-suchomski-86468931/">Krzysztof Suchomski</a>. 2018
+      </p>
+    </div>
+  </footer> -->
 </div>

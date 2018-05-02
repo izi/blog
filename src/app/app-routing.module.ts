@@ -6,10 +6,10 @@ import { GameOfLifeComponent } from './post/game-of-life/game-of-life.component'
 import { PostgresPlv8SideEffectsComponent } from './post/postgres-plv8-side-effects/postgres-plv8-side-effects.component';
 
 const routes: Routes = [
-  { path: 'game', component: GameOfLifeComponent },
+  { path: 'game-of-life', component: GameOfLifeComponent },
   { path: 'plv8', component: PostgresPlv8SideEffectsComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: '', redirectTo: 'game', pathMatch: 'full' },
+  { path: '', redirectTo: 'game-of-life', pathMatch: 'full' },
   { path: 'contact', component: ContactComponent },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
