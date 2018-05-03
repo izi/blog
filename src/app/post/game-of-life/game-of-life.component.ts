@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { GameOfLife, GameOfLifePattern } from './game-of-life';
+import { GameOfLifePattern } from '@izi_ride/game-of-life';
 import { GameOfLifeSVG } from './game-of-life-svg';
 
 @Component({

@@ -1,4 +1,4 @@
-import { GameOfLife, GameOfLifePattern, Life } from './game-of-life';
+import { Life, GameOfLife } from '@izi_ride/game-of-life';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { timer } from 'rxjs/observable/timer';
